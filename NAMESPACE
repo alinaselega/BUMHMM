@@ -1,0 +1,7 @@
+export("nuclPerm", "selectNuclPos", "scaleDOR", "computeStretches",
+       "stabiliseVariance", "findPatternPos", "computeProbs")
+import("devtools")
+importFrom("stringi", "stri_locate_all_fixed")
+importFrom("gtools", "permutations")
+importFrom("stats", "dbeta", "median", "nls", "quantile")
+importFrom("utils", "combn")
