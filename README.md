@@ -1,8 +1,19 @@
-# BUMHMM
-BUM-HMM is a statistical modelling pipeline for interpreting high-throughput RNA structure probing data.
+# Introduction
+BUM-HMM (Beta-Uniform Mixture Hidden Markov Model) is a statistical modelling pipeline for interpreting high-throughput RNA structure probing data.
 
-BUM-HMM is a probabilistic modeling pipeline which accounts for biological variability and biases in the structure probing data, yielding statistically interpretable scores for the probability of nucleotide modification transcriptome-wide. Applying BUM-HMM can increase sensitivity, enabling the identification of modified regions on many more transcripts compared with existing pipelines. It also provides confident predictions at much lower coverage levels than previously reported.
+BUM-HMM accounts for biological variability and biases in the structure probing data, generating statistically interpretable scores for the probability of nucleotide modification transcriptome-wide. Applying BUM-HMM can increase sensitivity, enabling the identification of modified regions on many more transcripts compared with existing pipelines. It also provides confident predictions at much lower coverage levels than previously recommended.
 
+# Development
+
+This repository has the layout of a Bioconductor package. This is the stable version of the method and the example workflow is provided in the associated vignette.
+
+The package is currently under development for better integration with the existing data structures of Bioconductor. It will be available for download from the Bioconductor platform in due course.
+
+# Contact
+
+If you have any questions or problems with using the model, please contact me at alina.selega@gmail.com.
+
+# References
 
 This repository is associated with the following manuscript:
 
