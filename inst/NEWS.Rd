@@ -18,3 +18,8 @@
             Bioconductor classes.
     }
 }
+\section{Changes in version 0.99.3 (22-11-2016)}{
+    \itemize{
+        \item Addressed Notes and Warnings after build.
+    }
+}
