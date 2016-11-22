@@ -1,4 +1,5 @@
-selectNuclPos <- function(covFile, docFile, Nc, Nt, t) {
+## This is a hidden function
+.selectNuclPos <- function(covFile, docFile, Nc, Nt, t) {
 
     if ((Nc < 2) | (Nt < 2)) {
         stop('The number of experimental replicates must be at least 2.')
@@ -69,28 +70,14 @@ selectNuclPos <- function(covFile, docFile, Nc, Nt, t) {
                                           indexT[i,2]] > 0))]
         }
 
-        ## Select nucleotides with significant coverage in all control
-        ## replicates
-        observedInAllC <- sort(Reduce(intersect, observedC))
-
-        ## Select nucleotides with significant coverage in all treatment
-        ## replicates
-        observedInAllT <- sort(Reduce(intersect, observedT))
-
-        ## Select nucleotides with significant coverage in all replicates
-        observedInAllCT <- sort(intersect(observedInAllC, observedInAllT))
-
-        ## Select nucleotides for which to compute posteriors: those positions
-        ## that have significant coverage in all replicates and a drop-off
-        ## count > 0 in at least one treatment replicate
-        computePosteriors <- list()
-        for (i in 1:length(observedT)) {
-            computePosteriors[[i]] <- observedInAllCT[which(
-            docFile[observedInAllCT, Nc + i] > 0)]
-        }
-
         return(list("analysedC" = analysedC,
-                    "analysedCT" = analysedCT,
-                    "computePosteriors" = computePosteriors))
+                    "analysedCT" = analysedCT))
     }
+}
+
+## The is the function visible to a user
+selectNuclPos <- function(se, Nc, Nt, t) {
+  res <- .selectNuclPos(assay(se, "coverage"),
+                        assay(se, "dropoff_count"), Nc, Nt, t)
+  return(res)
 }

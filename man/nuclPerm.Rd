@@ -24,7 +24,7 @@
 }
 \references{
     Selega et al. "Robust statistical modeling improves sensitivity of
-    high-throughput RNA structure probing experiments" (in press)
+    high-throughput RNA structure probing experiments", Nature Methods (2016).
 }
 \author{
     Alina Selega, Sander Granneman, Guido Sanguinetti

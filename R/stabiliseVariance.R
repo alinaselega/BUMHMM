@@ -1,4 +1,5 @@
-stabiliseVariance <- function(covFile, dorFile, analysedC, analysedCT, Nc, Nt) {
+.stabiliseVariance <- function(covFile, dorFile, analysedC, analysedCT, Nc, Nt)
+{
 
     if ((Nc < 2) | (Nt < 2)) {
         stop('Number of control and treatment replicates must be at least 2.')
@@ -178,4 +179,10 @@ stabiliseVariance <- function(covFile, dorFile, analysedC, analysedCT, Nc, Nt) {
 
         }
     }
+}
+
+stabiliseVariance <- function(se, nuclSelection, Nc, Nt) {
+    .stabiliseVariance(assay(se, "coverage"), assay(se, "dropoff_rate"),
+                       nuclSelection$analysedC, nuclSelection$analysedCT,
+                       Nc, Nt)
 }

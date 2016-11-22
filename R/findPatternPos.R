@@ -20,29 +20,37 @@ findPatternPos <- function(patterns, sequence, strand) {
                                                          overlap=TRUE)
         }
 
+        ## Compute positions of the middle nucleotide in each pattern occurence
+        nuclPosition <- lapply(indices, function(x) x[, 1] +
+                                 (ceiling(nchar(patterns[1]) / 2) - 1))
+
+        ## Get rid of naming attributes left from the stringi function
+        nuclPosition <- lapply(nuclPosition, function(x)
+            if (!(is.null(names(x)))) {unname(x)} else {x})
+
         ## Annotate found indices by the corresponding pattern
         if (strand == '+') {
-            names(indices) <- patterns
+            names(nuclPosition) <- patterns
         }
 
         ## Turn patterns to complementary if working with the minus strand
         if (strand == "-") {
-            complPatterns = list()
+            complPatterns <- list()
             for (i in 1:length(patterns)) {
-                chars = array('')
+                chars <- array('')
                 for (j in 1:nchar(patterns[i])) {
                     chars[j] <- switch(substr(patterns[i], j, j),
-                                'A' = 'T', 'T' = 'A', 'G' = 'C', 'C' = 'G')
+                                     'A' = 'T', 'T' = 'A', 'G' = 'C', 'C' = 'G')
                 }
                 complPatterns[[i]] <- paste(chars, collapse='')
             }
             ## Annotate found indices by the corresponding pattern
-            names(indices) <- complPatterns
+            names(nuclPosition) <- complPatterns
         }
 
-        ## Return them in the order of original patterns
-        position <- indices[patterns]
+        ## Arrange them in the order of original patterns
+        nuclPosition <- nuclPosition[patterns]
 
-        return(position)
+        return(nuclPosition)
     }
 }

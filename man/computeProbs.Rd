@@ -1,15 +1,16 @@
 \name{computeProbs}
 \alias{computeProbs}
 \title{
-    Function to compute posterior probabilities of modification with BUM-HMM for
-    all nucleotides.
+    Function to compute posterior probabilities of modification with the BUM-HMM
+    model for all nucleotides.
 }
 \description{
-    This function computes posterior probabilities for chemical modification in
-    a structure probing experiment. It uses p-values (which quantify the
-    difference between LDRs from treatment-control and control-control
-    experiments) as observations in an emission model defined as a
-    Beta-Uniform mixture.
+    This function computes posterior probabilities of chemical modification in
+    a structure probing experiment. It uses empirical p-values, which quantify
+    the difference between LDRs (log-ratios of drop-off rates) from
+    treatment-control and control-control experimental comparisons, as
+    observations in a HMM with an emission model defined as a Beta-Uniform
+    mixture.
 }
 \usage{
     computeProbs(LDR_C, LDR_CT, Nc, Nt, strand, nuclPosition, analysedC,
@@ -17,16 +18,15 @@
 }
 \arguments{
     \item{LDR_C}{
-        A matrix of transformed LDR distributions for control-control
-        comparisons as returned by \code{\link[BUMHMM]{stabiliseVariance}}. The
-        matrix rows correspond to nucleotide positions and columns to
-        control-control comparisons.
+        A matrix of transformed LDRs for control-control comparisons as returned
+        by \code{\link[BUMHMM]{stabiliseVariance}}. The matrix rows correspond
+        to nucleotide positions and columns to control-control comparisons.
     }
     \item{LDR_CT}{
-        A matrix of transformed LDR distributions for treatment-control
-        comparisons as returned by \code{\link[BUMHMM]{stabiliseVariance}}. The
-        matrix rows correspond to nucleotide positions and columns to
-        treatment-control comparisons.
+        A matrix of transformed LDRs for treatment-control comparisons as
+        returned by \code{\link[BUMHMM]{stabiliseVariance}}. The matrix rows
+        correspond to nucleotide positions and columns to treatment-control
+        comparisons.
     }
     \item{Nc}{
         Number of control experimental replicates. Must be at least 2.
@@ -39,9 +39,10 @@
     }
     \item{nuclPosition}{
         A list where each component corresponds to a pattern (indicated by the
-        field \code{names}) and contains the positions of the pattern's middle
-        nucleotide's occurrences within the sequence. If the sequence bias is
-        not addressed and the entire sequence is used (e.g. for short
+        field \code{names}) and contains indices of the middle nucleotides of
+        that pattern's occurrences within the sequence, as returned by
+        \code{\link[BUMHMM]{findPatternPos}}. If the sequence bias is not
+        addressed and all nucleotide positions are used together (e.g. for short
         transcripts), the only component of the list should contain all
         nucleotide positions of the sequence.
     }
@@ -56,16 +57,17 @@
         nucleotides selected for all treatment-control comparisons.
     }
     \item{stretches}{
-        A list where each element corresponds to an uninterrupted stretch of
-        nucleotides for which posterior probabilities are to be computed. Each
-        element contains the start index and the end index of the stretch.
+        An \code{\link{IRanges}} object storing each uninterrupted stretch of
+        nucleotides for which posterior probabilities are to be computed, as
+        returned by \code{\link[BUMHMM]{computeStretches}}.
     }
     \item{optimise}{
         An indicator variable to use the EM optimisation of shape parameters of
-        Beta distribution (emission model of the HMM for the modified state). If
-        optimisation is to be used, the variable should be set to the desired
-        tolerance for parameter estimation (once the estimates stop changing
-        within this tolerance, the algorithm stops).
+        the Beta distribution (emission model of the HMM for the modified
+        state). If optimisation is to be used, the variable should be set to the
+        desired tolerance for parameter estimation (once the estimates stop
+        changing within this tolerance, the algorithm stops). Set to \code{NULL}
+        by default.
     }
 }
 \details{
@@ -74,12 +76,12 @@
     multiple nucleotide patterns are used, then null distributions are computed
     separately for each pattern. Then, LDRs from treatment-control comparisons
     are compared to the percentiles of a corresponding null distribution via
-    computing the p-values, defined as 1 - closest percentile. Thus, if the
-    closest percentile to an LDR is 99th, then its p-value will be 0.01,
+    computing the p-values, defined as \code{1 - closest percentile}. Thus, if
+    the closest percentile to an LDR is 99th, then its p-value will be 0.01,
     reflecting a small probability for it to be from this null distribution.
-    The p-values are then used as observation in a hidden Markov model. P-values
-    corresponding to multiple comparisons at the same nucleotide position are
-    considered to be independent measurements.
+    The p-values are then used as observations in a hidden Markov model.
+    P-values corresponding to multiple comparisons at the same nucleotide
+    position are considered to be independent measurements.
 
     HMM has a binary latent state corresponding to the true state of a
     nucleotide, modified or unmodified. Transition probabilities are set
@@ -104,14 +106,14 @@
 }
 \value{
     An n-by-2 matrix of posterior probabilities for all selected nucleotides.
-    First row corresponds to the probability of the nucleotide being unmodified
-    (given the observations) and the second row - to the probability of the
-    nucleotide being modified. Those nucleotides not belonging to continuous
-    stretches, for which HMM was run, are assigned a NA.
+    First column corresponds to the probability of the nucleotide being
+    unmodified (given the observations) and the second column - to the
+    probability of the nucleotide being modified. Those nucleotides not
+    belonging to stretches for which the HMM was run are assigned an `NA'.
 }
 \references{
     Selega et al. "Robust statistical modeling improves sensitivity of
-    high-throughput RNA structure probing experiments" (in press)
+    high-throughput RNA structure probing experiments", Nature Methods (2016).
 }
 \author{
     Alina Selega, Sander Granneman, Guido Sanguinetti
@@ -120,8 +122,7 @@
     The following errors are returned if:
 
     "Number of control and treatment replicates must be at least 2."
-    the number of control or treatment experimental
-    replicates is less than 2;
+    the number of control or treatment experimental replicates is less than 2;
 
     "All lists of positions selected for pair-wise comparisons should
               be non-empty."
@@ -149,30 +150,35 @@
 }
 
 \seealso{
-    See Also \code{\link[BUMHMM]{stabiliseVariance}} and
-    \code{\link[BUMHMM]{selectNuclPos}}.
+    See Also \code{\link[BUMHMM]{stabiliseVariance}},
+    \code{\link[BUMHMM]{selectNuclPos}}, \code{\link[BUMHMM]{findPatternPos}},
+    and \code{\link[BUMHMM]{computeStretches}}.
 }
 \examples{
-    Nc = 3
-    Nt = 3
-    t = 1
+    library(SummarizedExperiment)
 
-    nuclSelection <- selectNuclPos(covFile, docFile, Nc, Nt, t)
+    Nc <- 3
+    Nt <- 3
+    t <- 1
 
-    nuclForPosteriors <- sort(Reduce(union, nuclSelection$computePosteriors))
-    stretches <- computeStretches(nuclForPosteriors)
+    nuclSelection <- selectNuclPos(se, Nc, Nt, t)
 
-    varStab <- stabiliseVariance(covFile, dorFile, nuclSelection$analysedC,
-               nuclSelection$analysedCT, Nc, Nt)
+    assay(se, "dropoff_rate") <- scaleDOR(se, nuclSelection, Nc, Nt)
+
+    stretches <- computeStretches(se, t)
+
+    varStab <- stabiliseVariance(se, nuclSelection, Nc, Nt)
 
     LDR_C <- varStab$LDR_C
     LDR_CT <- varStab$LDR_CT
 
+    sequence <- subject(rowData(se)$nucl)
     nuclPosition <- list()
-    nuclPosition[[1]] <- 1:(as.integer(nchar(unlist(sequence))))
+    nuclPosition[[1]] <- 1:nchar(sequence)
 
     posteriors <- computeProbs(LDR_C, LDR_CT, Nc, Nt, '+', nuclPosition,
-                  nuclSelection$analysedC, nuclSelection$analysedCT, stretches)
+                             nuclSelection$analysedC, nuclSelection$analysedCT,
+                             stretches)
 }
 
 \keyword{models}

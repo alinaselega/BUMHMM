@@ -1,36 +1,22 @@
-computeStretches <- function(indices) {
+computeStretches <- function(se, t) {
 
-    if (length(indices) < 2) {
-        stop('There should be at least 2 nucleotide positions in the list.')
+    if (t < 0) {
+      stop('The minumum coverage threshold must be non-negative.')
     }
-    else {
 
-      if (length(indices) > 10000) {
-          message('Computing stretches... This might take a few minutes.')
-      }
+    ## Find positions with coverage >= t in all replicates
+    allowedCoverage <- rowSums(assay(se, "coverage") >= t) == ncol(se)
 
-      ## Compute continuous stretches of nucleotides for which posterior
-      ## posterior probabilities will be computed
-      stretches <- list()
-      k <- 1
-      stretchStart <- 1
+    ## Find positions with drop-off count > 0 in treatment replicates
+    tReps <- (se$replicate == "treatment")
+    tDOC <- assay(se, "dropoff_count")[, tReps, drop=FALSE] > 0
 
-      for (i in 2:length(indices)) {
-          if ((indices[i] - indices[i-1]) > 1) {
-              if (stretchStart < i - 1) {
-                  stretches[[k]] <- c(indices[stretchStart],
-                                      indices[i - 1])
-                  k <- k + 1
-              }
-              stretchStart <- i
-          }
-      }
+    ## Find positions with coverage >= t in all replicates and
+    ## drop-off count > 0 in at least one treatment replicate
+    stretches <- IRanges(rowSums(allowedCoverage & tDOC) > 0)
 
-      if (stretchStart != length(indices)) {
-          stretches[[k]] <- c(indices[stretchStart],
-                              indices[length(indices)])
-      }
+    ## Pick those stretches that are at least 2 positions wide
+    stretches <- stretches[which(stretches@width >= 2)]
 
-      return(stretches)
-    }
+    return(stretches)
 }

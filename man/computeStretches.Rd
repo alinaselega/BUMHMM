@@ -4,34 +4,34 @@
     Function to compute continuous stretches of nucleotide positions.
 }
 \description{
-    This function computes continuous stretches from the list of nucleotide
-    position indices, for which posterior probabilities are to be computed,
-    returned in the third element of the output of the
-    \code{\link[BUMHMM]{selectNuclPos}} function. The stretch is at least two
+    This function computes continuous stretches of nucleotide positions, for
+    which posterior probabilities are to be computed. Such positions should have
+    the minimum allowed coverage (as defined with the parameter \code{t}) in
+    all experimental replicates and a non-zero drop-off count in at least one of
+    the treatment replicates. The returned stretches are at least two
     nucleotides long.
 }
 \usage{
-    computeStretches(indices)
+    computeStretches(se, t)
 }
 \arguments{
-    \item{indices}{
-        A sorted list of nucleotide positions for which posterior probabilities
-        are to be computed. This list can be obtained from the third element of
-        the list returned by the \code{\link[BUMHMM]{selectNuclPos}} function.
+    \item{se}{
+        A \code{\link{SummarizedExperiment}} object storing structure probing
+        data and the associated genomic sequence. The documentation for the
+        example data set provided with the package \code{\link[BUMHMM]{se}}
+        outlines how the object should be defined. \code{computeStretches} uses
+        the assays "coverage" and "dropoff_count".
+    }
+    \item{t}{
+        Threshold for the minimum allowed coverage. Must be non-negative.
     }
 }
-\details{
-    For example, if the posterior probabilities are to be computed for
-    nucleotides with positions 1, 2, 3, 4, 7, 8, 9, 15, 17, 18, the function
-    will return three stretches: [1 4], [7 9], and [17 18].
-}
 \value{
-    A list where each element corresponds to one stretch and has two elements:
-    the start index and the end index of the stretch.
+    An \code{\link{IRanges}} object storing each stretch.
 }
 \references{
     Selega et al. "Robust statistical modeling improves sensitivity of
-    high-throughput RNA structure probing experiments" (in press)
+    high-throughput RNA structure probing experiments", Nature Methods (2016).
 }
 \author{
     Alina Selega, Sander Granneman, Guido Sanguinetti
@@ -39,19 +39,12 @@
 \section{Error }{
     The following errors are returned if:
 
-    "There should be at least 2 nucleotide positions in the list."
-    less than two position indices are provided in the list.
-}
-
-\seealso{
-    See Also \code{\link[BUMHMM]{selectNuclPos}}.
+    "The minumum coverage threshold must be non-negative."
+    the threshold for the minimum considered coverage is negative.
 }
 \examples{
-    nuclSelection <- selectNuclPos(covFile, docFile, 3, 3, 1)
-
-    ## Pool together all positions in a single list and sort it
-    nuclForPosteriors <- sort(Reduce(union, nuclSelection$computePosteriors))
-    stretches <- computeStretches(nuclForPosteriors)
+    t <- 1
+    stretches <- computeStretches(se, t)
 }
 \keyword{manip}
 \keyword{arith}

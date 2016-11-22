@@ -1,7 +1,14 @@
 export("nuclPerm", "selectNuclPos", "scaleDOR", "computeStretches",
        "stabiliseVariance", "findPatternPos", "computeProbs")
 import("devtools")
+import("SummarizedExperiment")
+import("Biostrings")
+importFrom("IRanges", "IRanges", "start", "end")
 importFrom("stringi", "stri_locate_all_fixed")
 importFrom("gtools", "permutations")
-importFrom("stats", "dbeta", "median", "nls", "quantile")
+importFrom("stats", "dbeta")
+importFrom("stats", "median")
+importFrom("stats", "nls")
+importFrom("stats", "quantile")
 importFrom("utils", "combn")
+

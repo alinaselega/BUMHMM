@@ -139,8 +139,8 @@ computeProbs <- function(LDR_C, LDR_CT, Nc, Nt, strand, nuclPosition, analysedC,
         for (i in 1:length(stretches)) {
 
             ## Extract start and end of a current stretch
-            stretchStart <- stretches[[i]][1]
-            stretchEnd <- stretches[[i]][2]
+            stretchStart <- start(stretches)[i]
+            stretchEnd <- end(stretches)[i]
 
             ## Run HMM on the stretch
 

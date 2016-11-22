@@ -5,22 +5,18 @@
 }
 \description{
     This function selects pairs of nucleotide positions for computing log-ratios
-    of control-control and treatment-control replicate comparisons, and the
-    nucleotide positions for which the posterior probabilities of modification
-    will be computed.
+    of control-control and treatment-control replicate comparisons.
 }
 \usage{
-    selectNuclPos(covFile, docFile, Nc, Nt, t)
+    selectNuclPos(se, Nc, Nt, t)
 }
 \arguments{
-    \item{covFile}{
-        A file with coverage information at each nucleotide position (rows).
-        Experimental replicates should be arranged in different columns. Control
-        replicates come first, followed by treatment replicates.
-    }
-    \item{docFile}{
-        A file of drop-off counts at each nucleotide position. Same arrangement
-        as for \code{covFile}.
+    \item{se}{
+        A \code{\link{SummarizedExperiment}} object storing structure probing
+        data and the associated genomic sequence. The documentation for the
+        example data set provided with the package \code{\link[BUMHMM]{se}}
+        outlines how the object should be defined. \code{selectNuclPos} uses the
+        assays "coverage" and "dropoff_count".
     }
     \item{Nc}{
         Number of control experimental replicates. Must be at least 2.
@@ -29,8 +25,11 @@
         Number of treatment experimental replicates. Must be at least 2.
     }
     \item{t}{
-        Threshold for the minimum allowable coverage. Must be non-negative.
+        Threshold for the minimum allowed coverage. Must be non-negative.
     }
+}
+\details{
+    This function uses \code{\link[utils]{combn}}.
 }
 \value{
     \item{analysedC }{
@@ -45,25 +44,19 @@
         >= \code{t} and a drop-off count > 0 in both replicates of that
         comparison.
     }
-    \item{computePosteriors }{
-        List where each element corresponds to a treatment replicate. Each
-        element holds indices of nucleotides that have coverage >= \code{t} in
-        all replicates and a drop-off count > 0 in that experimental replicate.
-    }
 }
 \references{
     Selega et al. "Robust statistical modeling improves sensitivity of
-    high-throughput RNA structure probing experiments" (in press)
+    high-throughput RNA structure probing experiments", Nature Methods (2016).
 }
 \author{
     Alina Selega, Sander Granneman, Guido Sanguinetti
 }
 \section{Error }{
-    The following rrrors are returned if:
+    The following errors are returned if:
 
     "The number of experimental replicates must be at least 2."
-    the number of control or treatment experimental
-    replicates is less than 2;
+    the number of control or treatment experimental replicates is less than 2;
 
     "The minumum coverage threshold must be non-negative."
     the threshold for the minimum considered coverage is negative;
@@ -72,6 +65,6 @@
     the coverage and drop-off count matrices have NA entries.
 }
 \examples{
-    selectNuclPos(covFile, docFile, 3, 3, 1)
+    selectNuclPos(se, 3, 3, 1)
 }
 \keyword{manip}

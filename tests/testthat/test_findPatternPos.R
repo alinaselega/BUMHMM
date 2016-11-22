@@ -5,13 +5,12 @@ sequence <- 'TGACGTG'
 patterns <- nuclPerm(2)
 
 test_that("function correctly finds patterns", {
-    expect_equal(all(findPatternPos(patterns, sequence, '+')[[2]] == c(3, 4)),
+    expect_equal(findPatternPos(patterns, sequence, '+')[[2]] == 3,
                  TRUE)
-    expect_equal(all(findPatternPos(patterns, sequence, '+')[[15]][1,]
-                     == c(1, 2)), TRUE)
-    expect_equal(all(findPatternPos(patterns, sequence, '+')[[15]][2,]
-                     == c(6, 7)), TRUE)
-    expect_equal(all(is.na(findPatternPos(patterns, sequence, '+')[[1]])), TRUE)
+    expect_equal(all(findPatternPos(patterns, sequence, '+')[[15]]
+                     == c(1, 6)), TRUE)
+    expect_equal(
+      is.na(findPatternPos(patterns, sequence, '+')[[1]]), TRUE)
 })
 
 test_that("function requires strand to be '+' or '-'", {

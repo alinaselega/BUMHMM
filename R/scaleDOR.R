@@ -1,14 +1,22 @@
-scaleDOR <- function(dorFile, nuclSelection, Nc, Nt) {
+## This is a hidden helper function
+.poolNucl <- function(c, comparisons, indices) {
+
+  ## Pool nucleotide positions selected for comparisons including replicate c
+  rep <- which(comparisons == c, arr.ind=TRUE)[, 1]
+  return(Reduce(union, indices[rep]))
+}
+
+## This is a hidden function
+.scaleDOR <- function(dorFile, nuclSelection, Nc, Nt) {
 
     if ((Nc < 2) | (Nt < 2)) {
         stop('Number of control and treatment replicates must be at least 2.')
     }
-    else if (length(nuclSelection) != 3) {
-        stop('Nucleotide selection should have three elements.')
+    else if (length(nuclSelection) != 2) {
+        stop('Nucleotide selection should have two elements.')
     }
     else if (any(sapply(nuclSelection, function(x) length(x)) == 0)) {
-        stop('All lists of positions selected for pair-wise comparisons or for
-              which posteriors will be computed should be non-empty.')
+        stop('All lists of positions selected for pair-wise comparisons should be non-empty.')
     }
     else if (any(is.na(dorFile))) {
         stop('Drop-off rate matrix should not have any NA entries.')
@@ -26,15 +34,15 @@ scaleDOR <- function(dorFile, nuclSelection, Nc, Nt) {
         allSelectedNuclC <- list()
         for (i in 1:Nc) {
             allSelectedNuclC[[i]] <- union(
-            poolNucl(i, index, nuclSelection$analysedC),
-            poolNucl(i, indexT, nuclSelection$analysedCT))
+            .poolNucl(i, index, nuclSelection$analysedC),
+            .poolNucl(i, indexT, nuclSelection$analysedCT))
         }
 
         ## Get all positions in treatment replicates selected for pair-wise
         ## comparisons
         allSelectedNuclT <- list()
         for (i in (Nc+1):(Nc+Nt)) {
-            allSelectedNuclT[[i - Nc]] <- poolNucl(i, indexT,
+            allSelectedNuclT[[i - Nc]] <- .poolNucl(i, indexT,
                                                  nuclSelection$analysedCT)
         }
 
@@ -76,4 +84,9 @@ scaleDOR <- function(dorFile, nuclSelection, Nc, Nt) {
 
         return(dorFile)
     }
+}
+
+## This is the function visible to a user
+scaleDOR <- function(se, nuclSelection, Nc, Nt) {
+    .scaleDOR(assay(se, "dropoff_rate"), nuclSelection, Nc, Nt)
 }

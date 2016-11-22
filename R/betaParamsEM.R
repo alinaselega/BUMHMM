@@ -54,8 +54,8 @@ betaParamsEM <- function(posteriors, pVals, alpha, beta,
             ## Compute new posterior probabilities with E-step
             for (i in 1:length(stretches)) {
 
-                stretchStart <- stretches[[i]][1]
-                stretchEnd <- stretches[[i]][2]
+                stretchStart <- start(stretches)[i]
+                stretchEnd <- end(stretches)[i]
 
                 # Run the HMM inference for the stretches
                 if (strand == '+') {

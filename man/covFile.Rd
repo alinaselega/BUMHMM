@@ -24,6 +24,11 @@
 \description{
     A matrix containing 1800x6 entries of per nucleotide coverage information
     from structure probing experiments.
+
+    This matrix is provided as a reference for creating a
+    \code{SummarizedExperiment} object for storing all structure probing data
+    used by the \code{BUMHMM} package. See \code{\link[BUMHMM]{se}} for the
+    example code.
 }
 \references{
     Hector, R. D. et al. "Snapshots of pre-rRNA structural flexibility reveal
