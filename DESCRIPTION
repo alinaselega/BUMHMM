@@ -1,0 +1,37 @@
+Package: BUMHMM
+Type: Package
+Title: Computational pipeline for computing probability of modification
+        from structure probing experiment data
+Version: 0.99.3
+Date: 2016-09-22
+Author: Alina Selega (alina.selega@gmail.com), Sander Granneman, Guido
+        Sanguinetti
+Maintainer: Alina Selega <alina.selega@gmail.com>
+Description: This is a probabilistic modelling pipeline for computing
+        per- nucleotide posterior probabilities of modification from
+        the data collected in structure probing experiments. The model
+        supports multiple experimental replicates and empirically
+        corrects coverage- and sequence-dependent biases. The model
+        utilises the measure of a "drop-off rate" for each nucleotide,
+        which is compared between replicates through a log-ratio (LDR).
+        The LDRs between control replicates define a null distribution
+        of variability in drop-off rate observed by chance and LDRs
+        between treatment and control replicates gets compared to this
+        distribution. Resulting empirical p-values (probability of
+        being "drawn" from the null distribution) are used as
+        observations in a Hidden Markov Model with a Beta-Uniform
+        Mixture model used as an emission model. The resulting
+        posterior probabilities indicate the probability of a
+        nucleotide of having being modified in a structure probing
+        experiment.
+Depends: R (>= 3.4)
+License: GPL-3
+Imports: devtools, stringi, gtools, stats, utils, SummarizedExperiment,
+        Biostrings, IRanges
+Suggests: testthat, knitr, BiocStyle
+VignetteBuilder: knitr
+LazyData: true
+biocViews: GeneticVariability, Transcription, GeneExpression,
+        GeneRegulation, Coverage, Genetics, StructuralPrediction,
+        Transcriptomics, Bayesian, Classification, FeatureExtraction,
+        HiddenMarkovModel, Regression, RNASeq, Sequencing
