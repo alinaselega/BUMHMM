@@ -1,0 +1,32 @@
+pkgVer <- function(pkg) {
+    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
+    ver <- meta$Version
+    paste0('https://github.com/alinaselega/', pkg, ' - R package version ', ver)
+}
+c(
+    bibentry(bibtype="manual",
+        title = "BUMHMM: Computational pipeline for computing probability of modification from structure probing experiment data.",
+        author = personList(
+            as.person("Alina Selega"),
+            as.person("Sander Granneman"),
+            as.person("Guido Sanguinetti")
+        ),
+        year = 2016,
+        url = "http://www.bioconductor.org/packages/BUMHMM",
+        note = pkgVer('BUMHMM')
+    ),
+    bibentry(bibtype="article",
+        title = "Robust statistical modeling improves sensitivity of high-throughput RNA structure probing experiments",
+        author = personList(
+            as.person("Alina Selega"),
+            as.person("Christel Sirocchi"),
+            as.person("Ira Iosub"),
+            as.person("Sander Granneman"),
+            as.person("Guido Sanguinetti")
+        ),
+        year = 2016,
+        journal = "Nature Methods",
+        doi = "10.1038/nmeth.4068",
+        url = "http://www.nature.com/nmeth/journal/v14/n1/full/nmeth.4068.html"
+    )
+)
