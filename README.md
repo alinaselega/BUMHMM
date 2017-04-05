@@ -14,4 +14,4 @@ If you have any questions, please contact me at alina.selega@gmail.com.
 
 # References
 
-Selega, Alina, et al. "Robust statistical modeling improves sensitivity of high-throughput RNA structure probing experiments." Nature Methods (2016).
+Selega, A., Sirocchi, C., Iosub, I., Granneman, S., & Sanguinetti, G. (2016). Robust statistical modeling improves sensitivity of high-throughput RNA structure probing experiments. *Nature Methods*. doi:10.1038/nmeth.4068.
