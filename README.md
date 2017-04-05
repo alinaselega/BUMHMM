@@ -1,20 +1,17 @@
-# Introduction
-BUM-HMM (Beta-Uniform Mixture Hidden Markov Model) is a statistical modelling pipeline for interpreting high-throughput RNA structure probing data.
+# About
 
-BUM-HMM accounts for biological variability and biases in the structure probing data, generating statistically interpretable scores for the probability of nucleotide modification transcriptome-wide. Applying BUM-HMM can increase sensitivity, enabling the identification of modified regions on many more transcripts compared with existing pipelines. It also provides confident predictions at much lower coverage levels than previously recommended.
+BUM-HMM (Beta-Uniform Mixture Hidden Markov Model) is a probabilistic modelling pipeline for computing per-nucleotide posterior probabilities of modification from structure probing data. The model supports multiple experimental replicates and empirically corrects coverage- and sequence-dependent biases. The model utilises a measure of "drop-off rate" for each nucleotide, which is compared between replicates through a log-ratio (LDR). The LDRs between control replicates define a null distribution of variability in drop-off rate observed by chance and LDRs between treatment and control replicates gets compared to this distribution. Resulting empirical p-values (probability of being "drawn" from the null distribution) are used as observations in a Hidden Markov Model with a Beta-Uniform Mixture model used as an emission model. The resulting posterior probabilities indicate the probability of a nucleotide of having being modified in a structure probing experiment.
 
-# Development
+# Software
 
-This repository has the layout of a Bioconductor package. This is the stable version of the method and the example workflow is provided in the associated vignette.
+BUM-HMM is available as a Bioconductor package at the following URL:
 
-The package is currently submitted to Bioconductor for revision. It will be available for download from the Bioconductor platform in due course.
+https://bioconductor.org/packages/BUMHMM/
 
 # Contact
 
-If you have any questions or problems with using the model, please contact me at alina.selega@gmail.com.
+If you have any questions, please contact me at alina.selega@gmail.com.
 
 # References
 
-This repository is associated with the following manuscript:
-
-Selega et al., "Robust statistical modeling improves sensitivity of high-throughput RNA structure probing experiments", Nature Methods (2016).
+Selega, Alina, et al. "Robust statistical modeling improves sensitivity of high-throughput RNA structure probing experiments." Nature Methods (2016).
