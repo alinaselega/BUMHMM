@@ -23,3 +23,13 @@
         \item Addressed Notes and Warnings after build.
     }
 }
+\section{Changes in version 0.99.5 (05-04-2017)}{
+    \itemize{
+        \item Updated citations.
+    }
+}
+\section{Changes in version 0.99.6 (10-04-2017)}{
+    \itemize{
+        \item Updated version information.
+    }
+}
