@@ -2,7 +2,7 @@ Package: BUMHMM
 Type: Package
 Title: Computational pipeline for computing probability of modification
         from structure probing experiment data
-Version: 1.4.0
+Version: 1.5.0
 Date: 2016-09-22
 Author: Alina Selega (alina.selega@gmail.com), Sander Granneman, Guido
         Sanguinetti
