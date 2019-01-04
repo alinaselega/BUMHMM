@@ -2,7 +2,7 @@ Package: BUMHMM
 Type: Package
 Title: Computational pipeline for computing probability of modification
         from structure probing experiment data
-Version: 1.7.0
+Version: 1.7.1
 Date: 2016-09-22
 Author: Alina Selega (alina.selega@gmail.com), Sander Granneman, Guido
         Sanguinetti
@@ -31,7 +31,7 @@ Imports: devtools, stringi, gtools, stats, utils, SummarizedExperiment,
 Suggests: testthat, knitr, BiocStyle
 VignetteBuilder: knitr
 LazyData: true
-biocViews: GeneticVariability, Transcription, GeneExpression,
+biocViews: ImmunoOncology, GeneticVariability, Transcription, GeneExpression,
         GeneRegulation, Coverage, Genetics, StructuralPrediction,
         Transcriptomics, Bayesian, Classification, FeatureExtraction,
         HiddenMarkovModel, Regression, RNASeq, Sequencing
