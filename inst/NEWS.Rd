@@ -38,8 +38,8 @@
         \item Updated links to external functions in man pages.
     }
 }
-
-
-
-
-
+\section{Changes in version 1.6.3 (10-04-2019)}{
+    \itemize{
+        \item Removed empty lines.
+    }
+}
