@@ -33,3 +33,13 @@
         \item Updated version information.
     }
 }
+\section{Changes in version 1.6.2 (10-04-2019)}{
+    \itemize{
+        \item Updated links to external functions in man pages.
+    }
+}
+
+
+
+
+

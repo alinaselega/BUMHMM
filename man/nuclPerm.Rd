@@ -16,7 +16,7 @@
     }
 }
 \details{
-    This function uses \code{\link[gtools]{permutations}}.
+    This function uses \code{\link[gtools:combinations]{gtools::permutations()}}.
 }
 \value{
     A vector of characters with each element being a nucleobase pattern of
@@ -37,7 +37,7 @@
 }
 
 \seealso{
-    \code{\link[gtools]{permutations}}
+    \code{\link[gtools:combinations]{gtools::permutations()}}
 }
 \examples{
     nuclPerm(3)
