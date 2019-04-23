@@ -30,7 +30,7 @@
     }
 }
 \details{
-    This function uses \code{\link[stringi:stri_locate_all]{stringi::stri_locate_all_fixed()}}.
+    This function uses \code{\link[stringi:stri_locate]{stringi::stri_locate_all_fixed()}}.
 
     This function aims to assist with addressing sequence bias in structure
     probing data. The sequence in the neighbourhood of a nucleotide is assumed
