@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Computing stretches of nucleotides")
 
 covFile <- matrix(c(1,2,4,6,1,3,7,0,2,5,1,4,1,2,4,6,1,2,4,6,1,2,4,6),

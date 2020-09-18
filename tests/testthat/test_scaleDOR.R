@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Scaling drop-off rates")
 
 covFile <- matrix(c(10,15,20,8,0,18,12,0,14,14,10,20), nrow = 3, ncol = 4)

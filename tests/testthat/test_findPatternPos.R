@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Finding patterns in sequence")
 
 sequence <- 'TGACGTG'

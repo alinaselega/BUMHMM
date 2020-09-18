@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega, Christel Sirocchi, Sander Granneman, Guido Sanguinetti
+
 ## This function is for internal use by computeProbs.R
 
 hmmFwbw <- function(pVals, trans, initialProb, alpha, beta) {

@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Generating nucleobase patterns")
 
 test_that("function generates nucleobase patterns of length n", {

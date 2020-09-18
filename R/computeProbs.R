@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega, Sander Granneman, Guido Sanguinetti
+
 computeProbs <- function(LDR_C, LDR_CT, Nc, Nt, strand, nuclPosition, analysedC,
                          analysedCT, stretches, optimise=NULL) {
 

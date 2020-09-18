@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Compute probabilities")
 
 library(SummarizedExperiment)

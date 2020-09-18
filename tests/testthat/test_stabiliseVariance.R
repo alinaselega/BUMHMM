@@ -1,3 +1,6 @@
+# BUM-HMM
+# Copyright (C) 2016 Alina Selega
+
 context("Coverage bias, stabilising variance")
 
 covFile <- matrix(c(1,2,4,7,0,3,7,0,2,5,1,4), nrow = 3, ncol = 4)
